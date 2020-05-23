@@ -19,3 +19,9 @@ spec:
         image: tundaey/tripvat_rest-api
         ports:
         - containerPort: 80
+      livenessProbe:
+        httpGet:
+          path: /health
+          port: 8080
+        initialDelaySeconds: 3
+        periodSeconds: 3
