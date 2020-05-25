@@ -12,7 +12,7 @@ spec:
         service: reverseproxy
     spec:
       containers:
-      - image: tundaey/simple-reverse-proxy
+      - image: tundaey/tripvat_reverseproxy
         name: reverseproxy
         imagePullPolicy: Always          
         resources:
