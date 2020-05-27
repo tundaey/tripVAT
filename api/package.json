@@ -1,5 +1,5 @@
 {
-  "name": "udacity-c2-restapi",
+  "name": "graphql",
   "version": "1.0.0",
   "description": "",
   "main": "src/server.js",
@@ -17,7 +17,6 @@
   "license": "ISC",
   "dependencies": {
     "@types/jsonwebtoken": "^8.3.2",
-    "@types/bcrypt": "^3.0.0",
     "aws-sdk": "^2.492.0",
     "bcrypt": "^3.0.8",
     "body-parser": "^1.19.0",
@@ -27,7 +26,9 @@
     "pg": "^7.11.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.10.0",
-    "sequelize-typescript": "^0.6.11"
+    "sequelize-typescript": "^0.6.11",
+    "apollo-server": "^2.9.16",
+    "apollo-server-express": "^2.9.16"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
