@@ -76,8 +76,8 @@ const Form = () => {
         <MarginTop size="small">
           <Notification title={`There were ${signupError.length} error(s) with your submission`}>
             <ul>
-              {signupError.map((error) => (
-                <li>{error}</li>
+              {signupError.map((error, index) => (
+                <li key={index}>{error}</li>
               ))}
             </ul>
           </Notification>

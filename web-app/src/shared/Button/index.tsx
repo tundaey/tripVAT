@@ -54,7 +54,7 @@ interface IButton {
   icon?: IconProp;
   title?: string;
   children?: ReactNode;
-  color?: ButtonColors;
+  color?: ButtonColors | 'primary';
   full?: boolean;
   type: 'button' | 'reset' | 'submit';
 }

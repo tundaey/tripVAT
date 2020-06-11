@@ -42,7 +42,7 @@ const loginMutation = gql`
 const Form = () => {
   const history = useHistory();
   const location = useLocation();
-  const { from } = location.state || { from: { pathname: '/' } };
+  const { from } = (location.state as any) || { from: { pathname: '/' } };
   const { register, handleSubmit, errors } = useForm<AuthForm>();
   const [login] = useMutation(loginMutation);
   const [loginErrors, setLoginErrors] = useState<Array<string>>([]);
@@ -77,8 +77,8 @@ const Form = () => {
         <MarginTop size="small">
           <Notification title={`There were ${loginErrors.length} error(s) with your submission`}>
             <ul>
-              {loginErrors.map((error) => (
-                <li>{error}</li>
+              {loginErrors.map((error, index) => (
+                <li key={index}>{error}</li>
               ))}
             </ul>
           </Notification>

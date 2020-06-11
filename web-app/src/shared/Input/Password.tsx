@@ -3,7 +3,7 @@ import InputWrapper, { ErrorText } from './InputWrapper';
 import InputContainer from './InputContainer';
 import { IInput } from './IInput';
 
-const Password = (props: IInput, ref) => {
+const Password = (props: IInput, ref: any) => {
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     props.onChange && props.onChange(e.currentTarget.value);
   };
