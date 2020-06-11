@@ -8,7 +8,11 @@ enum ButtonColors {
   transparent = '#fff',
 }
 
-const ButtonWrapper = styled.button`
+interface ButtonWrapperProps {
+  full?: boolean;
+}
+
+const ButtonWrapper = styled.button<ButtonWrapperProps>`
   min-width: 100px;
   background-color: ${(props) => (props.color ? props.theme[props.color] : props.theme.white)};
   border-radius: 0.375rem;
@@ -52,12 +56,13 @@ interface IButton {
   children?: ReactNode;
   color?: ButtonColors;
   full?: boolean;
+  type: 'button' | 'reset' | 'submit';
 }
 
-const Button = ({ icon, children, color, full }: IButton) => (
+const Button = ({ icon, children, color, full, type }: IButton) => (
   <div>
     <ButtonSpan>
-      <ButtonWrapper color={color} full={full}>
+      <ButtonWrapper type={type} color={color} full={full}>
         {icon && <FontAwesomeIcon icon={icon} />}
         {children}
       </ButtonWrapper>

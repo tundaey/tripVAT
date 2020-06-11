@@ -45,14 +45,14 @@ export const login = async (parent: any, args: any, ctx) => {
   const user = await User.findByPk(email);
   // check that user exists
   if(!user) {
-      return { auth: false, message: 'Unauthorized' };
+      return { auth: false, message: 'Sorry, we did not recognise either your username or password' };
   }
 
   // check that the password matches
   const authValid = await comparePasswords(password, user.password_hash)
 
   if(!authValid) {
-      return { auth: false, message: 'Unauthorized' };
+      return { auth: false, message: 'Sorry, we did not recognise either your username or password' };
   }
 
   // Generate JWT
@@ -99,6 +99,6 @@ export const register = async (parent: any, args: any, ctx) => {
   // Generate JWT
   const jwt = generateJWT(savedUser);
 
-  return {token: jwt, user: savedUser.short()};
+  return {token: jwt, user: savedUser.short(), auth: true};
 };
 
