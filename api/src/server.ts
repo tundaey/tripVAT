@@ -2,7 +2,7 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { sequelize } from './sequelize';
 
-import { IndexRouter } from './controllers/v0/index.router';
+// import { IndexRouter } from './controllers/v0/index.router';
 
 import bodyParser from 'body-parser';
 
@@ -36,18 +36,18 @@ import { requireAuth } from './helpers/requireAuth';
   // } );
 
   const apolloServer = new ApolloServer({
-    context: requireAuth,
+    context: ({ req }) => req,
     resolvers,
     typeDefs,
     formatError: formatGraphQLErrors,
     playground: {
-      settings: {
-        'request.credentials': 'include'
-      }
+      // settings: {
+      //   'request.credentials': 'include'
+      // }
     }
   });
   
-  apolloServer.applyMiddleware({ app, cors: false, path: '/api/v0/' });
+  apolloServer.applyMiddleware({ app, cors: true, path: '/api/v0/' });
   
 
   // Start the Server

@@ -1,6 +1,10 @@
 import React, { useState, FormEvent } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/react-hooks';
 import logo from '../../images/logo.svg';
-import { Button, Input, MarginTop, MarginRight, Heading } from '../../shared';
+import { Button, Input, MarginTop, MarginRight, Heading, Notification } from '../../shared';
 import LoginBackground from './LoginBackground';
 import {
   LoginFormContainer,
@@ -12,25 +16,55 @@ import {
   LoginSocial,
   SectionDividerText,
   Text,
-  // Form,
   RememberSection,
   AuthWrapper,
 } from './common';
 
+import { saveToken } from '../../helpers/locastorage';
+
+type AuthForm = {
+  email: string;
+  password: string;
+};
+
+const signupMutation = gql`
+  mutation($email: String!, $password: String!) {
+    register(email: $email, password: $password) {
+      message
+      token
+      auth
+      user {
+        email
+      }
+    }
+  }
+`;
+
 const Form = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log('email && pass', email, password);
+  const history = useHistory();
+  const { register, handleSubmit, errors } = useForm<AuthForm>();
+  const [registerUser] = useMutation(signupMutation);
+  const [signupError, setSignupError] = useState<Array<string>>([]);
+  const onSubmit = (data: AuthForm) => {
+    registerUser({
+      variables: { email: data.email, password: data.password },
+    }).then(({ data: { register: registerResponse } }) => {
+      const { message, token, user } = registerResponse;
+      if (!token) {
+        setSignupError([message]);
+        return;
+      }
+      saveToken(token);
+      history.push('/');
+    });
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <MarginTop size="small">
-        <Input.Email value={email} onChange={setEmail} title="Email address" />
+        <Input.Email errors={errors.email} ref={register({ required: true })} name="email" title="Email address" />
       </MarginTop>
       <MarginTop size="small">
-        <Input.Password value={password} onChange={setPassword} title="Password" />
+        <Input.Password errors={errors.password} ref={register({ required: true })} name="password" title="Password" />
       </MarginTop>
       <MarginTop size="small">
         <RememberSection>
@@ -38,8 +72,19 @@ const Form = () => {
           <LinkText to="/signup">Forgot your password</LinkText>
         </RememberSection>
       </MarginTop>
+      {signupError.length > 0 && (
+        <MarginTop size="small">
+          <Notification title={`There were ${signupError.length} error(s) with your submission`}>
+            <ul>
+              {signupError.map((error, index) => (
+                <li key={index}>{error}</li>
+              ))}
+            </ul>
+          </Notification>
+        </MarginTop>
+      )}
       <MarginTop size="small">
-        <Button color="primary" full>
+        <Button color="primary" type="submit" full>
           Sign up
         </Button>
       </MarginTop>
@@ -67,13 +112,13 @@ const LoginForm = () => (
       </MarginTop>
       <LoginSocial>
         <MarginRight>
-          <Button icon={['fab', 'facebook']}></Button>
+          <Button type="button" icon={['fab', 'facebook']}></Button>
         </MarginRight>
         <MarginRight>
-          <Button icon={['fab', 'twitter']}></Button>
+          <Button type="button" icon={['fab', 'twitter']}></Button>
         </MarginRight>
         <MarginRight>
-          <Button icon={['fab', 'google']}></Button>
+          <Button type="button" icon={['fab', 'google']}></Button>
         </MarginRight>
       </LoginSocial>
       <MarginTop size="medium">
