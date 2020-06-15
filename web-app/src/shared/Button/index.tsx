@@ -22,7 +22,7 @@ const ButtonWrapper = styled.button<ButtonWrapperProps>`
   padding-left: 1rem;
   padding-right: 1rem;
   line-height: 1.25rem;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   font-weight: 500;
   display: inline-flex;
   justify-content: center;
@@ -50,6 +50,10 @@ const ButtonSpan = styled.span`
   border-radius: 0.375rem;
 `;
 
+const ButtonIcon = styled.div`
+  margin-right: 0.5rem;
+`;
+
 interface IButton {
   icon?: IconProp;
   title?: string;
@@ -63,8 +67,12 @@ const Button = ({ icon, children, color, full, type }: IButton) => (
   <div>
     <ButtonSpan>
       <ButtonWrapper type={type} color={color} full={full}>
-        {icon && <FontAwesomeIcon icon={icon} />}
-        {children}
+        {icon && (
+          <ButtonIcon>
+            <FontAwesomeIcon icon={icon} />
+          </ButtonIcon>
+        )}
+        <div>{children}</div>
       </ButtonWrapper>
     </ButtonSpan>
   </div>

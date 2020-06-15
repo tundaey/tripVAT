@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-import { Login, Signup } from './pages';
+import { Login, Signup, Home, Trips, Events, Refunds } from './pages';
+import { Nav } from './shared';
 import { getToken } from './helpers/locastorage';
 
 interface RouteProps {
@@ -14,7 +15,16 @@ const PrivateRoute = ({ children, ...rest }: RouteProps) => {
   return (
     <Route
       {...rest}
-      render={({ location }) => (token ? children : <Redirect to={{ pathname: 'login', state: { from: location } }} />)}
+      render={({ location }) =>
+        token ? (
+          <>
+            <Nav />
+            {children}
+          </>
+        ) : (
+          <Redirect to={{ pathname: 'login', state: { from: location } }} />
+        )
+      }
     />
   );
 };
@@ -23,8 +33,6 @@ const PublicRoute = ({ children, ...rest }: RouteProps) => {
   const token = getToken();
   return <Route {...rest} render={({ location }) => (token ? <Redirect to={{ pathname: '/' }} /> : children)} />;
 };
-
-const Home = () => <div>Home</div>;
 
 const AppWrapper = styled.div`
   height: 100vh;
@@ -42,8 +50,17 @@ const App = () => {
           <PublicRoute path="/login">
             <Login />
           </PublicRoute>
-          <PrivateRoute path="/">
+          <PrivateRoute exact path="/">
             <Home />
+          </PrivateRoute>
+          <PrivateRoute path="/trips">
+            <Trips />
+          </PrivateRoute>
+          <PrivateRoute path="/refunds">
+            <Refunds />
+          </PrivateRoute>
+          <PrivateRoute path="/events">
+            <Events />
           </PrivateRoute>
         </Switch>
       </Router>

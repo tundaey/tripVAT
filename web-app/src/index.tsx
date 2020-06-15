@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFacebook, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faUsers, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUsers, faTimesCircle, faPlus, faBars } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -32,7 +33,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-library.add(faFacebook, faGoogle, faUsers, faTwitter, faTimesCircle);
+library.add(faFacebook, faGoogle, faUsers, faTwitter, faTimesCircle, far, faPlus, faBars);
 
 const GlobalStyle = createGlobalStyle`
   html, body, #app {
