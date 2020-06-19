@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import NavAvatar from './NavAvatar';
-import device from './device';
+import device from '../../shared/device';
 import avatar from '../../images/avatar.jpeg';
 
 export const NavRightMobileMenuWrapper = styled.div`

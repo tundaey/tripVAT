@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Button from '../Button';
+import Button from '../../shared/Button';
 import { NavRightMobileMenu } from './NavMobile';
-import NavAvatar from './NavAvatar';
-import device from './device';
+import NavAvatar, { NavAvatarDropDown } from './NavAvatar';
+import device, { size } from '../../shared/device';
 import navLogo from '../../images/workflow-logo.svg';
 import logo from '../../images/logo.svg';
 import avatar from '../../images/avatar.jpeg';
@@ -113,6 +113,9 @@ const NavMenuItem = styled(NavLink).attrs({ activeClassName })`
 const NavAccount = styled.div`
   display: flex;
   margin-right: 2rem;
+  @media (min-width: ${size.laptopL}) {
+    margin-right: 10rem;
+  }
 `;
 
 const NavNotification = styled.button`
@@ -120,7 +123,7 @@ const NavNotification = styled.button`
   border: 0px solid transparent;
   cursor: pointer;
   border-radius: 9999px;
-  outline: none;
+  /* outline: none; */
   margin-left: 0.5rem;
   &:focus {
     color: #6b7280;
@@ -167,15 +170,15 @@ const Nav = () => {
             </NavMobileMenuButton>
             <img src={logo} />
           </NavLeftMobile>
-          <NavMenu>
-            <NavMenuItem exact to="/">
-              Dashboard
-            </NavMenuItem>
-            <NavMenuItem to="/trips">Trips</NavMenuItem>
-            <NavMenuItem to="/refunds">Refunds</NavMenuItem>
-            <NavMenuItem to="/events">Events</NavMenuItem>
-          </NavMenu>
         </NavLeft>
+        <NavMenu>
+          <NavMenuItem exact to="/">
+            Dashboard
+          </NavMenuItem>
+          <NavMenuItem to="/trips">Trips</NavMenuItem>
+          <NavMenuItem to="/refunds">Refunds</NavMenuItem>
+          <NavMenuItem to="/events">Events</NavMenuItem>
+        </NavMenu>
         <NavAccount>
           <NavButton>
             <Button full icon={['fas', 'plus']} color="primary" type="button">
@@ -186,9 +189,10 @@ const Nav = () => {
             <NavNotification>
               <FontAwesomeIcon icon={['far', 'bell']} />
             </NavNotification>
-            <NavAvatar>
+            {/* <NavAvatar>
               <img src={avatar} />
-            </NavAvatar>
+            </NavAvatar> */}
+            <NavAvatarDropDown />
           </NavRight>
         </NavAccount>
       </NavWrapper>

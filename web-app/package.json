@@ -33,6 +33,7 @@
     "@fortawesome/react-fontawesome": "^0.1.10",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
+    "@types/react-select": "^3.0.13",
     "@typescript-eslint/eslint-plugin": "^3.1.0",
     "@typescript-eslint/parser": "^3.1.0",
     "apollo-cache-inmemory": "^1.6.6",
@@ -53,6 +54,7 @@
     "react-dom": "^16.13.1",
     "react-hook-form": "^5.7.2",
     "react-router-dom": "^5.2.0",
+    "react-select": "^3.1.0",
     "styled-components": "^5.1.1",
     "typescript": "^3.9.5"
   },
