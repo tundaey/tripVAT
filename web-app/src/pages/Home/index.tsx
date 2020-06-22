@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import device, { size } from '../../shared/device';
 import { Stats, RecentRefunds } from '../../components';
 import { Status } from '../../components/RecentRefunds';
+import { Table, MarginTop } from '../../shared';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Container = styled.div`
@@ -50,8 +51,14 @@ const Home = () => {
       <Container>
         <H3>Current Stats</H3>
         <Stats data={statsData} />
-        <H3>Recent Refunds</H3>
-        <RecentRefunds data={recentRefunds} />
+        <MarginTop size="medium">
+          <H3>Recent Refunds</H3>
+          <RecentRefunds data={recentRefunds} />
+        </MarginTop>
+        <MarginTop size="medium">
+          <H3>Refunds History</H3>
+          <Table />
+        </MarginTop>
       </Container>
     </>
   );
